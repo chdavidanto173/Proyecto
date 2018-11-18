@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Todos los eventos</h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-8">
+
+        <div class="container">
+            <h2>Table</h2>
+            <p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>               
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Fecha</th>
+                            <th>Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Evento 1</td>
+                            <td>Concierto</td>
+                            <td>12/04/2025</td>
+                            <td><a class="btn btn-default">@Html.ActionLink("Detalle", "About", "Home")</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+
+        <h2>Anuncio 1</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+
+        <h2>Anuncio 2</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+
+
+    </div>
+
+    <button id="ac" >Acceso</button>
+</div>
