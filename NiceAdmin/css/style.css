@@ -9903,3 +9903,11 @@ span.customSelect.changed {
 #sendmessage.show, #errormessage.show, .show {
 	display:block;
 }
+
+.row{
+    margin-bottom:20px;
+}
+
+.modal-header{
+  background: #1a2732;
+}

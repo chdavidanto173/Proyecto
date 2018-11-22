@@ -15,6 +15,10 @@ function cargarAsientos(){
         });
 }
 
+
+
+
+
 function guardarAerolinea(){    // Revisar y Ajustar
     $.ajax({
             data:{
