@@ -39,10 +39,8 @@ function agregarEvento(){
             url:"./server/Eventos.php",
             type:"post",
             success:function(response){
-              //  cargarAerolineas();
-              //   $( "#idClose" ).trigger( "click" );
-              alert("Evento Agregado exitosamente");
               cargarEventos();
+			  alert("Evento Agregado exitosamente");
             }
         });
 }
@@ -86,7 +84,7 @@ function cargarEvento($cod){
 
 
 function eliminarEvento($codigo){
-  alert("entro");
+ 
     $.ajax({
         data:{
             accion:'EE',
@@ -96,6 +94,7 @@ function eliminarEvento($codigo){
         type:"post",
         success:function(response){
           cargarEventos();
+		  alert("Evento eliminado exitosamente");
         }
     });
 }

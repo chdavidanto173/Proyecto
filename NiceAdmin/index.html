@@ -389,7 +389,7 @@
                 <h2><i class="fa fa-flag-o red"></i><strong>Todos los eventos</strong></h2>
                 <div class="panel-actions">
 				  <a href="index.html#" id="idmyModalEvento" data-toggle="modal" data-target="#myModalEvento" class="btn-setting"><i class="fa fa-plus" style="color:green"></i></a>
-                  <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                  <a onclick="cargarEventos()" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
                   <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
                   <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
                 </div>
@@ -402,7 +402,7 @@
                <th>Fecha</th>
                <th>Duracion</th>
               <th>Lugar</th>
-               <th>Reservación</th>
+               <th></th>
              </tr>
            </thead>
            <tbody id="bodyEventos">
@@ -458,7 +458,8 @@
               <div class="panel-heading">
                 <h2><i class="fa fa-flag-o red"></i><strong>Entradas</strong></h2>
                 <div class="panel-actions">
-                  <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+				  <a href="index.html#" id="idmyModalEntrada" data-toggle="modal" data-target="#myModalEntrada" class="btn-setting"><i class="fa fa-plus" style="color:green"></i></a>
+                  <a onclick="cargarEntradas()" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
                   <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
                   <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
                 </div>
@@ -893,7 +894,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="myModalEntrada" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -912,10 +913,11 @@
                 <div class="panel-body">
                   <div class="form">
                     <form class="form-validate form-horizontal " id="register_form" method="get" action="">
+					 <input id="entraCodigo" name="entraCodigo" type="hidden" value="0"> 
                       <div class="form-group ">
                         <label for="evento" class="control-label col-lg-2">Evento <span class="required">*</span></label>
                         <div class="col-lg-10">
-                          <input class=" form-control" id="evento" name="evento" type="text" />
+							 <select id="comboEventos" name="comboEventos"class="form-control" ></select>
                         </div>
                       </div>
                       <div class="form-group ">
@@ -939,13 +941,6 @@
                             </select>
                         </div>
                       </div>
-
-                      <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                          <button class="btn btn-primary" type="button" onclick="agregarEntrada()">Comprar</button>
-                          <button class="btn btn-default" type="button">Cancel</button>
-                        </div>
-                      </div>
                     </form>
                   </div>
                 </div>
@@ -954,7 +949,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    <div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+				<button class="btn btn-primary" type="button" onclick="agregarEntrada()" data-dismiss="modal">Comprar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
         </div>
       </div>
 
@@ -1024,7 +1024,7 @@
         <div class="modal-footer">		
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-10">
-				<button class="btn btn-primary" type="button" onclick="agregarEvento()">Agregar</button>
+				<button class="btn btn-primary" type="button" onclick="agregarEvento()" data-dismiss="modal">Agregar</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				</div>
 			</div>
@@ -1035,6 +1035,10 @@
   </div>
 
 </div>
+
+
+
+
 
 
 

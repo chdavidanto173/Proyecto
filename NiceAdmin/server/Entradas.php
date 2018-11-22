@@ -3,17 +3,26 @@
 
 switch ($_POST['accion']) {
 
-    case "AE": //Guardar aerolinea
-          insertarEntrada();
+    case "AE": //Agregar Entrada
+        insertarEntrada();
         break;
 
-    case "CE": //Guardar aerolinea
-              cargarEntradas();
-            break;
+    case "CE": //Cargar Entradas
+		cargarEntradas();
+		break;
+		
+	case "SEI": //Cargar Entrada por Codigo
+       selectEntradaCod();
+      break;
 
-    case 'EE': //seleccionar Eventos
-    eliminarEntrada();
-    break;
+    case 'EE': //Eliminar Entradas
+		eliminarEntrada();
+		break;
+	
+	 case 'CCombE': //Eliminar Entradas
+		selectEventos();
+		break;
+		
 
 
 }
@@ -49,9 +58,9 @@ switch ($_POST['accion']) {
             <td>'.$row['Tipo'].'</td>
             <td>'.$row['CodigoEvento'].'</td>
             <td><div class="btn-group">
-                <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2" tittle="Adquirir Entrada" ></i></a>
-                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                <a class="btn btn-danger" onClick="eliminarEntrada('.$row['Codigo'].')"><i class="icon_close_alt2"></i></a>
+             
+                <a class="btn btn-primary" onclick="cargarEntrada('.$row['Codigo'].')"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-danger" onClick="eliminarEntrada('.$row['Codigo'].')"><i class="fa fa-trash-o"></i></a>
                 </div>
                 </td>
           </tr>';
@@ -62,40 +71,102 @@ switch ($_POST['accion']) {
           echo $e->getMessage();
           }
       }
+	  
+	  
+	  
+	function selectEntradaCod(){
+		try {
+			$dbh = init();
+			$result = $dbh->query('SELECT * FROM Entrada where Codigo ='.$_POST['cod']);
+			$dbh = null;
+			foreach($result as $row) {
+				$data =  $row['Codigo'].','.$row['Cantidad'].','.$row['Precio'].','.$row['Estado'].','.$row['Tipo'].','.$row['CodigoEvento'];
+			}
+			echo $data;
+		}
+		catch(PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+	
+	function selectEventos(){
+ 		try {
+ 			$dbh = init();
+ 			$result = $dbh->query('SELECT * FROM Evento');
+ 			$dbh = null;
+ 			$datos = "<option selected>Seleccionar Evento...</option>";
+ 			foreach($result as $row) {
+ 				$datos = $datos . '<option value= "'.$row['Codigo'].'">'.$row['Nombre'].'</option>';
+ 		}
+ 		
+ 		echo $datos .'</select>';
+ 		}
+ 			catch(PDOException $e) {
+ 			echo $e->getMessage();
+ 		}
+ 	}
+	  
+	  
+	  
 
+	  function insertarEntrada(){
+		if($_POST['codEntrada'] == 0){
+		try {
+			$dbh = init();
+			
+			$insert = "INSERT INTO Entrada (Codigo, Cantidad, Precio, Estado, Tipo, CodigoEvento) VALUES (:Codigo, :Cantidad, :Precio, :Estado, :Tipo, :CodigoEvento)";
+			$stmt = $dbh->prepare($insert);
+		
+			
+			$stmt->bindParam(':Codigo', $codigo);
+			$stmt->bindParam(':Cantidad', $cantidad);
+			$stmt->bindParam(':Precio', $precio);
+			$stmt->bindParam(':Estado', $estado);
+			$stmt->bindParam(':Tipo', $tipo);
+			$stmt->bindParam(':CodigoEvento', $codigoEvento);
+		
 
-      function insertarEntrada(){
+			$cantidad = $_POST['cantidadEntrada'];
+			$precio = $_POST['precioEntrada'];
+			$estado = "vendida";
+			$tipo = $_POST['tipoEntrada'];
+			$codigoEvento = $_POST['eventoEntrada'] ;
+			
+		$cantidad = $_POST['cantidadEntrada'];
+			$precio = $_POST['precioEntrada'];
+			$estado = "vendida";
+			$tipo = $_POST['tipoEntrada'];
+			$codigoEvento = $_POST['eventoEntrada'] ;
 
-         try {
-          $file_db = new PDO('sqlite:VentaEntradas.db');
-          $file_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-          $insert = "INSERT INTO entrada (codigo, cantidad, precio,estado,tipo,codigoEvento) VALUES (:codigo, :cantidad, :precio, :estado, :tipo, :codigoEvento)";
-          $stmt = $file_db->prepare($insert);
-
-          $stmt->bindParam(':codigo', $codigo);
-          $stmt->bindParam(':cantidad', $cantidad);
-          $stmt->bindParam(':precio', $precio);
-          $stmt->bindParam(':estado', $estado);
-          $stmt->bindParam(':tipo', $tipo);
-          $stmt->bindParam(':codigoEvento', $codigoEvento);
-
-
-          $codigo = null;
-          $cantidad = $_POST['cantidadEntrada'];
-          $precio = $_POST['precioEntrada'];
-          $estado = "vendida";
-          $tipo = $_POST['tipoEntrada'];
-          $codigoEvento = 1 ;
-
-          $stmt->execute();
-          $file_db = null;
-
-        }
-        catch(PDOException $e) {
-          echo $e->getMessage();
-        }
-      }
+			$stmt->execute();
+			$dbh = null;
+		}
+		catch(PDOException $e) {
+			echo $e->getMessage();
+		}
+		}
+		else {
+		try {
+			$dbh = init();
+		
+		    $cantidad = $_POST['cantidadEntrada'];
+			$precio = $_POST['precioEntrada'];
+			$estado = "vendida";
+			$tipo = $_POST['tipoEntrada'];
+			$codigoEvento = $_POST['eventoEntrada'] ;
+		
+			$update = "Update Entrada set Cantidad = '".$cantidad."' ,Precio ='".$precio."' ,Estado ='".$estado."' ,Tipo ='".$tipo."' ,CodigoEvento ='".$codigoEvento."' where Codigo = ".$_POST['codEntrada'];
+				$dbh->exec($update);
+			$dbh = null;
+			}
+		catch(PDOException $e) {
+			echo $e->getMessage();
+		}
+		}
+	}
+	  
+	  
+	  
 
 
 
