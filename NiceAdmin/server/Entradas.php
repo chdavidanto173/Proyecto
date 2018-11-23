@@ -10,7 +10,7 @@ switch ($_POST['accion']) {
     case "CE": //Cargar Entradas
 		cargarEntradas();
 		break;
-		
+
 	case "SEI": //Cargar Entrada por Codigo
        selectEntradaCod();
       break;
@@ -18,11 +18,11 @@ switch ($_POST['accion']) {
     case 'EE': //Eliminar Entradas
 		eliminarEntrada();
 		break;
-	
+
 	 case 'CCombE': //Eliminar Entradas
 		selectEventos();
 		break;
-		
+
 
 
 }
@@ -58,7 +58,7 @@ switch ($_POST['accion']) {
             <td>'.$row['Tipo'].'</td>
             <td>'.$row['CodigoEvento'].'</td>
             <td><div class="btn-group">
-             
+
                 <a class="btn btn-primary" onclick="cargarEntrada('.$row['Codigo'].')"><i class="fa fa-edit"></i></a>
                 <a class="btn btn-danger" onClick="eliminarEntrada('.$row['Codigo'].')"><i class="fa fa-trash-o"></i></a>
                 </div>
@@ -71,9 +71,9 @@ switch ($_POST['accion']) {
           echo $e->getMessage();
           }
       }
-	  
-	  
-	  
+
+
+
 	function selectEntradaCod(){
 		try {
 			$dbh = init();
@@ -88,7 +88,7 @@ switch ($_POST['accion']) {
 			echo $e->getMessage();
 		}
 	}
-	
+
 	function selectEventos(){
  		try {
  			$dbh = init();
@@ -98,41 +98,41 @@ switch ($_POST['accion']) {
  			foreach($result as $row) {
  				$datos = $datos . '<option value= "'.$row['Codigo'].'">'.$row['Nombre'].'</option>';
  		}
- 		
+
  		echo $datos .'</select>';
  		}
  			catch(PDOException $e) {
  			echo $e->getMessage();
  		}
  	}
-	  
-	  
-	  
+
+
+
 
 	  function insertarEntrada(){
 		if($_POST['codEntrada'] == 0){
 		try {
 			$dbh = init();
-			
+
 			$insert = "INSERT INTO Entrada (Codigo, Cantidad, Precio, Estado, Tipo, CodigoEvento) VALUES (:Codigo, :Cantidad, :Precio, :Estado, :Tipo, :CodigoEvento)";
 			$stmt = $dbh->prepare($insert);
-		
-			
+
+
 			$stmt->bindParam(':Codigo', $codigo);
 			$stmt->bindParam(':Cantidad', $cantidad);
 			$stmt->bindParam(':Precio', $precio);
 			$stmt->bindParam(':Estado', $estado);
 			$stmt->bindParam(':Tipo', $tipo);
 			$stmt->bindParam(':CodigoEvento', $codigoEvento);
-		
+
 
 			$cantidad = $_POST['cantidadEntrada'];
 			$precio = $_POST['precioEntrada'];
 			$estado = "vendida";
 			$tipo = $_POST['tipoEntrada'];
 			$codigoEvento = $_POST['eventoEntrada'] ;
-			
-		$cantidad = $_POST['cantidadEntrada'];
+
+	   	$cantidad = $_POST['cantidadEntrada'];
 			$precio = $_POST['precioEntrada'];
 			$estado = "vendida";
 			$tipo = $_POST['tipoEntrada'];
@@ -148,13 +148,13 @@ switch ($_POST['accion']) {
 		else {
 		try {
 			$dbh = init();
-		
+
 		    $cantidad = $_POST['cantidadEntrada'];
 			$precio = $_POST['precioEntrada'];
 			$estado = "vendida";
 			$tipo = $_POST['tipoEntrada'];
 			$codigoEvento = $_POST['eventoEntrada'] ;
-		
+
 			$update = "Update Entrada set Cantidad = '".$cantidad."' ,Precio ='".$precio."' ,Estado ='".$estado."' ,Tipo ='".$tipo."' ,CodigoEvento ='".$codigoEvento."' where Codigo = ".$_POST['codEntrada'];
 				$dbh->exec($update);
 			$dbh = null;
@@ -164,9 +164,9 @@ switch ($_POST['accion']) {
 		}
 		}
 	}
-	  
-	  
-	  
+
+
+
 
 
 

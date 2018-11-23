@@ -37,7 +37,7 @@
 
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="js/asientos.js"></script>
-  <script src="js/eventos.js"></script>
+  <script src="js/promotores.js"></script>
   <script src="js/entradas.js"></script>
   <!-- =======================================================
     Theme Name: NiceAdmin
@@ -386,8 +386,9 @@
 
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h2><i class="fa fa-flag-o red"></i><strong>Todos los eventos</strong></h2>
+                <h2><i class="fa fa-flag-o red"></i><strong>Promotores</strong></h2>
                 <div class="panel-actions">
+                    <a href="index.html#" id="idmyModalEvento" data-toggle="modal" data-target="#myModalPromotor" class="btn-setting"><i class="fa fa-plus" style="color:green"></i></a>
                   <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
                   <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
                   <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
@@ -397,14 +398,13 @@
            <thead>
              <tr>
               <th>Codigo</th>
+               <th>Comision</th>
+               <th>Evento</th>
                <th>Nombre</th>
-               <th>Fecha</th>
-               <th>Duracion</th>
-              <th>Lugar</th>
-               <th>Reservación</th>
+               <th>Acciones</th>
              </tr>
            </thead>
-           <tbody id="bodyEventos">
+           <tbody id="bodyPromotores">
 
            </tbody>
          </table>
@@ -1007,19 +1007,15 @@
 
 
   <div class="container">
-  <h2>Modal Example</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="myModalPromotor" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Adquirir Entrada</h4>
+          <h4 class="modal-title">Nuevo Promotor</h4>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -1031,40 +1027,41 @@
                 <div class="panel-body">
                   <div class="form">
                     <form class="form-validate form-horizontal " id="register_form" method="get" action="">
+                     <input id="codigoPromotor" name="" type="hidden" value="0">
+                      <input id="codigoPersona" name="" type="hidden" value="0">
                       <div class="form-group ">
-                        <label for="evento" class="control-label col-lg-2">Evento <span class="required">*</span></label>
+                        <label for="cedulaPersona" class="control-label col-lg-2">Cedula<span class="required">*</span></label>
                         <div class="col-lg-10">
-                          <input class=" form-control" id="evento" name="evento" type="text" />
+                          <input class=" form-control" id="cedulaPersona" name="cedulaPersona" type="text" />
                         </div>
                       </div>
                       <div class="form-group ">
-                        <label for="precio" class="control-label col-lg-2">Precio <span class="required">*</span></label>
+                        <label for="nombrePersona" class="control-label col-lg-2">Nombre<span class="required">*</span></label>
                         <div class="col-lg-10">
-                          <input class=" form-control" id="precio" name="precio" type="text" />
+                          <input class=" form-control" id="nombrePersona" name="eveFecha" type="text" />
                         </div>
                       </div>
                       <div class="form-group ">
-                        <label for="cantidad" class="control-label col-lg-2">cantidad<span class="required">*</span></label>
+                        <label for="direccionPersona" class="control-label col-lg-2">Direccion<span class="required">*</span></label>
                         <div class="col-lg-10">
-                          <input class="form-control " id="cantidad" name="cantidad" type="text" />
+                          <input class="form-control " id="direccionPersona" name="direccionPersona" type="text" />
                         </div>
                       </div>
                       <div class="form-group ">
-                        <label for="tipo" class="control-label col-lg-2">Tipo<span class="required">*</span></label>
+                        <label for="telefonoPersona" class="control-label col-lg-2">Telefono<span class="required">*</span></label>
                         <div class="col-lg-10">
-                            <select id="tipoEntrada" class="form-control ">
-                           <option value="numerada">Numerada </option>
-                          <option value="noNumerada">No Numerada</option>
-                            </select>
+                          <input class="form-control " id="telefonoPersona" name="telefonoPersona" type="text" />
                         </div>
                       </div>
 
-                      <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                          <button class="btn btn-primary" type="button" onclick="agregarEntrada()">Comprar</button>
-                          <button class="btn btn-default" type="button">Cancel</button>
+                      <div class="form-group ">
+                        <label for="comision" class="control-label col-lg-2">Comision<span class="required">*</span></label>
+                        <div class="col-lg-10">
+                          <input class="form-control " id="comision" name="comision" type="text" />
                         </div>
                       </div>
+
+
                     </form>
                   </div>
                 </div>
@@ -1073,7 +1070,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+        <button class="btn btn-primary" type="button" onclick="agregarPromotor()">Agregar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
         </div>
       </div>
 
